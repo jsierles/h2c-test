@@ -6,20 +6,21 @@
 app = "js-h2c-test"
 primary_region = "mad"
 
+# [[services]]
+#   protocol = "tcp"
+#   internal_port = 8080
+#   processes = ["app"]
+
+#   [[services.ports]]
+#     port = 443
+#     handlers = ["tls", "http"]
+
 [[services]]
   protocol = "tcp"
-  internal_port = 8080
-  auto_stop_machines = false
-  auto_start_machines = true
-  min_machines_running = 1
+  internal_port = 8081
   processes = ["app"]
 
-# This is the main gateway server that runs the HTTP/2 server
   [[services.ports]]
-    port = 443
+    port = 444
     handlers = ["tls"]
     tls_options = { "alpn" = ["h2"] }
-  [services.concurrency]
-    type = "requests"
-    hard_limit = 1000
-    soft_limit = 250
